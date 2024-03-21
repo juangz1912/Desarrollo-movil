@@ -28,40 +28,109 @@ class TodoListApp extends StatefulWidget {
 
 class _TodoListAppState extends State<TodoListApp> {
   List<Task> tasks = [];
+  List<Task> completedTasks = [];
+  List<Task> deletedTasks = [];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.blue,
         title: Text('Lista de Tareas'),
       ),
-      body: ListView.builder(
-        itemCount: tasks.length,
-        itemBuilder: (context, index) {
-          return ListTile(
-            title: Text(tasks[index].name),
-            leading: Checkbox(
-              value: tasks[index].isCompleted,
-              onChanged: (value) {
-                setState(() {
-                  tasks[index].isCompleted = value!;
-                });
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _buildSectionTitle('Tareas Generales'),
+          Expanded(
+            child: ListView.builder(
+              itemCount: tasks.length,
+              itemBuilder: (context, index) {
+                return _buildTaskItem(tasks[index]);
               },
             ),
-            trailing: IconButton(
-              icon: Icon(Icons.delete),
-              onPressed: () {
-                setState(() {
-                  tasks.removeAt(index);
-                });
+          ),
+          Divider(),
+          _buildSectionTitle('Tareas Completadas'),
+          Expanded(
+            child: ListView.builder(
+              itemCount: completedTasks.length,
+              itemBuilder: (context, index) {
+                return _buildTaskItem(completedTasks[index]);
               },
             ),
-          );
-        },
+          ),
+          Divider(),
+          _buildSectionTitle('Papelera'),
+          Expanded(
+            child: ListView.builder(
+              itemCount: deletedTasks.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  title: Text(deletedTasks[index].name),
+                  trailing: IconButton(
+                    icon: Icon(Icons.delete_forever),
+                    onPressed: () {
+                      setState(() {
+                        deletedTasks.removeAt(index);
+                      });
+                    },
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => _showAddTaskDialog(context),
         child: Icon(Icons.add),
+      ),
+    );
+  }
+
+  Widget _buildSectionTitle(String title) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Text(
+        title,
+        style: TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTaskItem(Task task) {
+    return ListTile(
+      title: Text(task.name),
+      leading: Checkbox(
+        value: task.isCompleted,
+        onChanged: (value) {
+          setState(() {
+            task.isCompleted = value!;
+            if (task.isCompleted) {
+              tasks.remove(task);
+              completedTasks.add(task);
+              deletedTasks.remove(task);
+            } else {
+              completedTasks.remove(task);
+              tasks.add(task);
+              deletedTasks.remove(task);
+            }
+          });
+        },
+      ),
+      trailing: IconButton(
+        icon: Icon(Icons.delete),
+        onPressed: () {
+          setState(() {
+            tasks.remove(task);
+            completedTasks.remove(task);
+            deletedTasks.add(task);
+          });
+        },
       ),
     );
   }
