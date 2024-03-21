@@ -41,7 +41,7 @@ class _TodoListAppState extends State<TodoListApp> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildSectionTitle('Tareas Generales'),
+          _buildSectionTitle('Tareas'),
           Expanded(
             child: ListView.builder(
               itemCount: tasks.length,
