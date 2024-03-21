@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(MyTodoListApp());
 }
 
 class Task {
@@ -9,6 +9,16 @@ class Task {
   bool isCompleted;
 
   Task(this.name, this.isCompleted);
+}
+
+class MyTodoListApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Tareas App',
+      home: TodoListApp(),
+    );
+  }
 }
 
 class TodoListApp extends StatefulWidget {
@@ -21,40 +31,37 @@ class _TodoListAppState extends State<TodoListApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.blue,
-          title: Text('Lista de Tareas'),
-        ),
-        body: ListView.builder(
-          itemCount: tasks.length,
-          itemBuilder: (context, index) {
-            return ListTile(
-              title: Text(tasks[index].name),
-              leading: Checkbox(
-                value: tasks[index].isCompleted,
-                onChanged: (value) {
-                  setState(() {
-                    tasks[index].isCompleted = value!;
-                  });
-                },
-              ),
-              trailing: IconButton(
-                icon: Icon(Icons.delete),
-                onPressed: () {
-                  setState(() {
-                    tasks.removeAt(index);
-                  });
-                },
-              ),
-            );
-          },
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () => _showAddTaskDialog(context),
-          child: Icon(Icons.add),
-        ),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Lista de Tareas'),
+      ),
+      body: ListView.builder(
+        itemCount: tasks.length,
+        itemBuilder: (context, index) {
+          return ListTile(
+            title: Text(tasks[index].name),
+            leading: Checkbox(
+              value: tasks[index].isCompleted,
+              onChanged: (value) {
+                setState(() {
+                  tasks[index].isCompleted = value!;
+                });
+              },
+            ),
+            trailing: IconButton(
+              icon: Icon(Icons.delete),
+              onPressed: () {
+                setState(() {
+                  tasks.removeAt(index);
+                });
+              },
+            ),
+          );
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => _showAddTaskDialog(context),
+        child: Icon(Icons.add),
       ),
     );
   }
@@ -96,16 +103,6 @@ class _TodoListAppState extends State<TodoListApp> {
           ],
         );
       },
-    );
-  }
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Tareas App',
-      home: TodoListApp(),
     );
   }
 }
