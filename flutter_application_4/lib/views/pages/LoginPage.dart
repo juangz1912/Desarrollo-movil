@@ -14,71 +14,73 @@ class LoginPage extends StatelessWidget {
         backgroundColor: Color.fromARGB(255, 196, 22, 10),
       ),
       backgroundColor: Colors.white, 
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.network(
-              'https://i.pinimg.com/originals/cd/36/19/cd3619f9e171f176bf0774017147170d.png',
-              width: 150,
-              height: 150,
-              fit: BoxFit.contain,
-            ),
-            SizedBox(height: 20),
-            TextField(
-              controller: emailController,
-              decoration: InputDecoration(
-                labelText: 'Email',
-                prefixIcon: Icon(Icons.email, color: Color.fromARGB(255, 196, 22, 10)), 
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Color.fromARGB(255, 196, 22, 10)), 
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Color.fromARGB(255, 196, 22, 10)), 
+      body: SingleChildScrollView( // Agrega SingleChildScrollView aquí
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.network(
+                'https://i.pinimg.com/originals/cd/36/19/cd3619f9e171f176bf0774017147170d.png',
+                width: 150,
+                height: 150,
+                fit: BoxFit.contain,
+              ),
+              SizedBox(height: 20),
+              TextField(
+                controller: emailController,
+                decoration: InputDecoration(
+                  labelText: 'Email',
+                  prefixIcon: Icon(Icons.email, color: Color.fromARGB(255, 196, 22, 10)), 
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Color.fromARGB(255, 196, 22, 10)), 
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Color.fromARGB(255, 196, 22, 10)), 
+                  ),
                 ),
               ),
-            ),
-            SizedBox(height: 20), 
-            TextField(
-              controller: passwordController,
-              obscureText: true,
-              decoration: InputDecoration(
-                labelText: 'Password',
-                prefixIcon: Icon(Icons.lock, color: Color.fromARGB(255, 196, 22, 10)), 
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Color.fromARGB(255, 196, 22, 10)), 
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Color.fromARGB(255, 196, 22, 10)), 
+              SizedBox(height: 20), 
+              TextField(
+                controller: passwordController,
+                obscureText: true,
+                decoration: InputDecoration(
+                  labelText: 'Password',
+                  prefixIcon: Icon(Icons.lock, color: Color.fromARGB(255, 196, 22, 10)), 
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Color.fromARGB(255, 196, 22, 10)), 
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Color.fromARGB(255, 196, 22, 10)), 
+                  ),
                 ),
               ),
-            ),
-            SizedBox(height: 20), 
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                ElevatedButton(
-                  onPressed: () {
-                    loginController.login(emailController.text, passwordController.text, context);
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Color.fromARGB(255, 196, 22, 10),
+              SizedBox(height: 20), 
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      loginController.login(emailController.text, passwordController.text, context);
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Color.fromARGB(255, 196, 22, 10),
+                    ),
+                    child: Text('Login', style: TextStyle(color: Colors.white)),
                   ),
-                  child: Text('Login', style: TextStyle(color: Colors.white)),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, 'registro');
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Color.fromARGB(255, 196, 22, 10),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, 'registro');
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Color.fromARGB(255, 196, 22, 10),
+                    ),
+                    child: Text('Sign up', style: TextStyle(color: Colors.white)),
                   ),
-                  child: Text('Sign up', style: TextStyle(color: Colors.white)),
-                ),
-              ],
-            ),
-          ],
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
