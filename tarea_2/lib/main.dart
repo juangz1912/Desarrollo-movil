@@ -1,6 +1,13 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:tarea_2/firebase_options.dart';
+import 'package:tarea_2/controller/TaskController.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(MyTodoListApp());
 }
 
@@ -30,6 +37,7 @@ class _TodoListAppState extends State<TodoListApp> {
   List<Task> tasks = [];
   List<Task> completedTasks = [];
   List<Task> deletedTasks = [];
+  TaskController _controller = TaskController();
 
   @override
   Widget build(BuildContext context) {
@@ -159,8 +167,10 @@ class _TodoListAppState extends State<TodoListApp> {
               child: Text('Cancelar'),
             ),
             TextButton(
-              onPressed: () {
+              onPressed: () async {
                 if (newTask.isNotEmpty) {
+                  // Agrega la tarea a Firebase
+                  String id = await _controller.create({"title": newTask});
                   setState(() {
                     tasks.add(Task(newTask, false));
                   });

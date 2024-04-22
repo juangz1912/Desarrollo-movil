@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "635468841774",
+    "project_id": "desarrollo-movil2024",
+    "storage_bucket": "desarrollo-movil2024.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:635468841774:android:aa0f1ff156168fbde5b0bf",
+        "android_client_info": {
+          "package_name": "com.example.tarea_2"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-EnbSF1J8kU6Kst9AmMplFcw8b7P7gJ8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
